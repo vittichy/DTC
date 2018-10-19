@@ -1,0 +1,7 @@
+﻿nuget:
+NUnit3
+NUnit3TestAdapter
+
+- pak to stale neni v menu vs :-)
+- postup viz zde: https://stackoverflow.com/questions/43007761/how-to-run-nunit-tests-in-visual-studio-2017
+tj otevrit TestExplorer a pak uz to nejak zacne byt viditelne z menu.
