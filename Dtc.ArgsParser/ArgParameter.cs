@@ -10,7 +10,7 @@ namespace Dtc.ArgsParser
     [DebuggerDisplay("{ArgParamType}, Key:{Key}, Value:{Value}, Values.Count:{Values.Length}")]
     public class ArgParameter
 	{
-        public readonly string Arg;
+        public readonly string ArgSource;
 
         public readonly ArgParamType ArgParamType;
 
@@ -21,9 +21,7 @@ namespace Dtc.ArgsParser
 
         public ArgParameter(string arg)
         {
-            Arg = arg;
-
-            DecodeArg(Arg, out ArgParamType, out Key, out Value, out Values);
+            DecodeArg(ArgSource = arg, out ArgParamType, out Key, out Value, out Values);
         }
 
 

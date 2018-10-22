@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtc.ArgsParser.Tests", "Dtc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtc.IO", "Dtc.IO\Dtc.IO.csproj", "{A1A2A7C0-8DA7-4784-A7BB-C3586515886C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtc.IO.Tests", "Dtc.IO.Tests\Dtc.IO.Tests.csproj", "{B6A6B9F9-54FF-4AEB-A37E-516E34446259}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A1A2A7C0-8DA7-4784-A7BB-C3586515886C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1A2A7C0-8DA7-4784-A7BB-C3586515886C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1A2A7C0-8DA7-4784-A7BB-C3586515886C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6A6B9F9-54FF-4AEB-A37E-516E34446259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A6B9F9-54FF-4AEB-A37E-516E34446259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A6B9F9-54FF-4AEB-A37E-516E34446259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A6B9F9-54FF-4AEB-A37E-516E34446259}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

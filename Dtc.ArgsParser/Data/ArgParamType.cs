@@ -1,17 +1,17 @@
 ﻿namespace Dtc.ArgsParser.Data
 {
     /// <summary>
-    /// urcuje typ argumentu - prikaz nebo prepinac
+    /// arg type
     /// </summary>
     public enum ArgParamType 
 	{
         /// <summary>
-        /// arg command
+        /// arg command (help etc)
         /// </summary>
 		Command, 
 
         /// <summary>
-        /// arg switch (-help etc)
+        /// arg switch (-help, -file:1.txt etc)
         /// </summary>
 		Switch
 	};
