@@ -61,7 +61,11 @@ namespace Dtc.ArgsParser
             return FindArgByName(Switches, nameSet).FirstOrDefault();
         }
 
-
+        public string GetSwitchValue(params string[] nameSet)
+        {
+            return FindArgByName(Switches, nameSet).FirstOrDefault()?.Value;
+        }
+        
         public ArgParameter GetCommand(params string[] nameSet)
         {
             return FindArgByName(Commands, nameSet).FirstOrDefault();

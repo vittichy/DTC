@@ -99,5 +99,25 @@ namespace Dtc.ArgsParser.Tests
         }
 
 
+        [Test]
+        public void ParsingTest5()
+        {
+            var args = new string[]
+            {
+                @"/size:444444",
+            };
+            var argsParser = new ArgsParser(args);
+
+            Assert.IsNotNull(argsParser);
+            Assert.AreEqual(1, argsParser.ArgParameterSet.Count);
+            Assert.AreEqual(0, argsParser.Commands.Count());
+            Assert.AreEqual(1, argsParser.Switches.Count());
+            var sizeSwitch = argsParser.GetSwitch("size");
+            Assert.IsNotNull(sizeSwitch);
+            Assert.AreEqual("444444", sizeSwitch.Value);
+            Assert.AreEqual("444444", argsParser.GetSwitchValue("size"));
+        }
+
+
     }
 }
