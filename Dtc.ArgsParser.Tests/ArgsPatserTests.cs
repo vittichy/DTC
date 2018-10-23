@@ -72,5 +72,32 @@ namespace Dtc.ArgsParser.Tests
             Assert.IsNotNull(argsParser.GetSwitch("cdlFile"));
             Assert.AreEqual(@"""c:\tmp\file.txt""", argsParser.GetSwitch("cdlFile")?.Value);
         }
+
+
+        [Test]
+        public void ParsingTest4MutliValues()
+        {
+            var args = new string[]
+            {
+                @"/size:300,444444,aaaa,!!!,@",
+            };
+            var argsParser = new ArgsParser(args);
+
+            Assert.IsNotNull(argsParser);
+            Assert.AreEqual(1, argsParser.ArgParameterSet.Count);
+            Assert.AreEqual(0, argsParser.Commands.Count());
+            Assert.AreEqual(1, argsParser.Switches.Count());
+            var sizeSwitch = argsParser.GetSwitch("size");
+            Assert.IsNotNull(sizeSwitch);
+            Assert.AreEqual("300,444444,aaaa,!!!,@", sizeSwitch.Value);
+            Assert.AreEqual(5, sizeSwitch.Values.Count());
+            Assert.AreEqual("300", sizeSwitch.Values[0]);
+            Assert.AreEqual("444444", sizeSwitch.Values[1]);
+            Assert.AreEqual("aaaa", sizeSwitch.Values[2]);
+            Assert.AreEqual("!!!", sizeSwitch.Values[3]);
+            Assert.AreEqual("@", sizeSwitch.Values[4]);
+        }
+
+
     }
 }
