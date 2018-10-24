@@ -1,4 +1,5 @@
 ﻿using Dtc.ArgsParser.Data;
+using System;
 using System.Diagnostics;
 
 namespace Dtc.ArgsParser
@@ -10,6 +11,8 @@ namespace Dtc.ArgsParser
     [DebuggerDisplay("{ArgParamType}, Key:{Key}, Value:{Value}, Values.Count:{Values.Length}")]
     public class ArgParameter
 	{
+        private const string _quotationMark = "\"";
+
         public readonly string ArgSource;
 
         public readonly ArgParamType ArgParamType;
@@ -60,10 +63,21 @@ namespace Dtc.ArgsParser
             {
                 key = argWithoutSwitchStarter.Substring(0, i);
                 value = argWithoutSwitchStarter.Substring(i + 1, argWithoutSwitchStarter.Length - i - 1);
+                RemoveQuotationsMark(ref value);
                 // rozparsovani Values[] pokud je jich vic
                 values = value.Split(ArgsParser.ValueSeparators);
             }
         }
 
+        /// <summary>
+        /// replace _quotationMark from start and ending of parameter value
+        /// </summary>
+        private static void RemoveQuotationsMark(ref string value)
+        {
+            if (!string.IsNullOrEmpty(value) && value.StartsWith(_quotationMark) && value.EndsWith(_quotationMark))
+            {
+                value = value.Substring(1, value.Length - 2);
+            }
+        }
     }
 }

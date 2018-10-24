@@ -70,7 +70,7 @@ namespace Dtc.ArgsParser.Tests
             Assert.AreEqual(0, argsParser.Commands.Count());
             Assert.AreEqual(1, argsParser.Switches.Count());
             Assert.IsNotNull(argsParser.GetSwitch("cdlFile"));
-            Assert.AreEqual(@"""c:\tmp\file.txt""", argsParser.GetSwitch("cdlFile")?.Value);
+            Assert.AreEqual(@"c:\tmp\file.txt", argsParser.GetSwitch("cdlFile")?.Value);
         }
 
 
@@ -116,6 +116,29 @@ namespace Dtc.ArgsParser.Tests
             Assert.IsNotNull(sizeSwitch);
             Assert.AreEqual("444444", sizeSwitch.Value);
             Assert.AreEqual("444444", argsParser.GetSwitchValue("size"));
+        }
+
+            
+        [Test]
+        public void ParsingTest6()
+        {
+            var args = new string[]
+            {
+                @"-file:""C:\_C1Sources\C1\Services\FinanceService,a:\;""e:\___""""",
+            };
+            var argsParser = new ArgsParser(args);
+
+            Assert.IsNotNull(argsParser);
+            Assert.AreEqual(1, argsParser.ArgParameterSet.Count);
+            Assert.AreEqual(0, argsParser.Commands.Count());
+            Assert.AreEqual(1, argsParser.Switches.Count());
+            var fileSwitch = argsParser.GetSwitch("file");
+            Assert.IsNotNull(fileSwitch);
+            Assert.IsNotNull(fileSwitch.Values);
+            Assert.AreEqual(3, fileSwitch.Values.Count());
+            Assert.AreEqual(@"C:\_C1Sources\C1\Services\FinanceService", fileSwitch.Values[0]);
+            Assert.AreEqual(@"a:\", fileSwitch.Values[1]);
+            Assert.AreEqual(@"""e:\___""", fileSwitch.Values[2]);
         }
 
 
