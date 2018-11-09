@@ -116,6 +116,33 @@ namespace Dtc.Common.Extensions
             return RemoveEndText(value, endWith.ToString(), comparisonType);
         }
 
+        /// <summary>
+        /// remove end text to specified char
+        /// </summary>
+        public static string RemoveEndTextTo(this string value, char endWith)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                var index = value.LastIndexOf(endWith);
+                if (index > -1)
+                    return value.Substring(0, index);
+            }
+            return value;
+        }
+
+        /// <summary>
+        /// remove start text to specified char
+        /// </summary>
+        public static string RemoveStartTextTo(this string value, char endWith)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                var index = value.IndexOf(endWith);
+                if (index > -1)
+                    return value.Substring(++index);
+            }
+            return value;
+        }
 
         public static string TrimToMaxLen(this string value, int maxLen, string endString = null)
         {

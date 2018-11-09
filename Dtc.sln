@@ -11,6 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtc.ArgsParser.Tests", "Dtc
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtc.IO", "Dtc.IO\Dtc.IO.csproj", "{A1A2A7C0-8DA7-4784-A7BB-C3586515886C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{940FA591-EDF7-47C4-B067-CDA8DB884074} = {940FA591-EDF7-47C4-B067-CDA8DB884074}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtc.IO.Tests", "Dtc.IO.Tests\Dtc.IO.Tests.csproj", "{B6A6B9F9-54FF-4AEB-A37E-516E34446259}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -23,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtc.Log", "Dtc.Log\Dtc.Log.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtc.Common", "Dtc.Common\Dtc.Common.csproj", "{940FA591-EDF7-47C4-B067-CDA8DB884074}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtc.Common.Tests", "Dtc.Common.Tests\Dtc.Common.Tests.csproj", "{4588B9A9-9149-4F44-9D34-7BF698DCC82E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +59,10 @@ Global
 		{940FA591-EDF7-47C4-B067-CDA8DB884074}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{940FA591-EDF7-47C4-B067-CDA8DB884074}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{940FA591-EDF7-47C4-B067-CDA8DB884074}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4588B9A9-9149-4F44-9D34-7BF698DCC82E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4588B9A9-9149-4F44-9D34-7BF698DCC82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4588B9A9-9149-4F44-9D34-7BF698DCC82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4588B9A9-9149-4F44-9D34-7BF698DCC82E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
