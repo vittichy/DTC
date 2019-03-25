@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Linq;
 
 namespace Dtc.Common.Extensions
 {
@@ -186,6 +188,22 @@ namespace Dtc.Common.Extensions
                 }
             }
             return notFoundValue;
+        } 
+        
+        /// <summary>
+        /// get substring to first occurence of char ch
+        /// </summary>
+        /// <param name="value">string instance</param>
+        /// <param name="ch">ending char</param>
+        /// <returns>string</returns>
+        public static string SusbstrToChars(this string value, params char[] chrs)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                var existingChar = new List<char>(chrs).FirstOrDefault(p => value.Contains(p));
+                return value.SusbstrToChar(existingChar);
+            }
+            return null;
         }
 
 
@@ -203,6 +221,28 @@ namespace Dtc.Common.Extensions
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public static string SusbstrFromToChar(this string value, char start, char end)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                var startIndex = Math.Max(value.IndexOf(start), 0);
+                var endIndex = value.IndexOf(end);
+                if (endIndex < 0)
+                    endIndex = value.Length - 1;
+
+                return value.Substring(startIndex, (endIndex - startIndex) + 1);
+            }
+            return null;
+        }
+
+        
         /// <summary>
         /// Split string to half
         /// </summary>
@@ -267,6 +307,14 @@ namespace Dtc.Common.Extensions
         {
             return !string.IsNullOrEmpty(s) && s.EndsWith(ch.ToString());
         }
+               
+
+        public static string ExtendToLength(this string s, int extendToLength, char extendChar)
+        {
+            var addCount = extendToLength - (s ?? string.Empty).Length;
+            return (addCount > 0) ? s + new string(extendChar, addCount) : s;
+        }
+
 
     }
 }
