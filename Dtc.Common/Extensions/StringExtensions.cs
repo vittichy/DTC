@@ -168,28 +168,31 @@ namespace Dtc.Common.Extensions
         }
 
 
-
-
-
         /// <summary>
         /// get substring to first occurence of char ch
         /// </summary>
         /// <param name="value">string instance</param>
         /// <param name="ch">ending char</param>
         /// <returns>string</returns>
-        public static string SusbstrToChar(this string value, char ch, string notFoundValue = null)
+        public static string SusbstrTo(this string value, string toStr)
         {
-            if (value != null)
-            {
-                var chIndex = value.IndexOf(ch);
-                if (chIndex >= 0)
-                {
-                    return value.Substring(0, chIndex);
-                }
-            }
-            return notFoundValue;
-        } 
-        
+            if (string.IsNullOrEmpty(value))
+                return string.Empty;
+
+            var chIndex = value.IndexOf(toStr);
+            if (chIndex >= 0)
+                return value.Substring(0, chIndex);
+
+            return string.Empty;
+        }
+
+
+        public static string SusbstrTo(this string value, char toChar)
+        {
+            return SusbstrTo(value, toChar.ToString());
+        }
+
+
         /// <summary>
         /// get substring to first occurence of char ch
         /// </summary>
@@ -198,26 +201,30 @@ namespace Dtc.Common.Extensions
         /// <returns>string</returns>
         public static string SusbstrToChars(this string value, params char[] chrs)
         {
-            if (!string.IsNullOrEmpty(value))
-            {
-                var existingChar = new List<char>(chrs).FirstOrDefault(p => value.Contains(p));
-                return value.SusbstrToChar(existingChar);
-            }
-            return null;
+            if (string.IsNullOrEmpty(value))
+                return string.Empty;
+            
+            var existingChar = new List<char>(chrs).FirstOrDefault(p => value.Contains(p));
+            return value.SusbstrTo(existingChar);
+        }
+        
+
+        public static string SusbstrFrom(this string value, string fromStr)
+        {
+            if (string.IsNullOrEmpty(value) || string.IsNullOrEmpty(fromStr))
+                return string.Empty;
+            
+            int chIndex = value.IndexOf(fromStr);
+            if (chIndex >= 0)
+                return value.Substring(chIndex + fromStr.Length);
+
+            return string.Empty;
         }
 
 
-        public static string SusbstrFromChar(this string value, char ch, string notFoundValue = null)
+        public static string SusbstrFrom(this string value, char fromCh)
         {
-            if (value != null)
-            {
-                int chIndex = value.IndexOf(ch);
-                if ((chIndex >= 0) && ((chIndex + 1) < value.Length))
-                {
-                    return value.Substring(chIndex + 1, value.Length - chIndex - 1);
-                }
-            }
-            return notFoundValue;
+            return SusbstrFrom(value, fromCh.ToString());
         }
 
 
@@ -242,20 +249,33 @@ namespace Dtc.Common.Extensions
             return null;
         }
 
-        
+
         /// <summary>
         /// Split string to half
+        /// 
+        /// "ABCDE" + C separator => "AB"   + "DE"
+        /// "ABCDE" + A separator => Empty  + "BCDE"
+        /// "ABCDE" + E separator => "ABCD" + Empty
+        /// 
         /// </summary>
-        /// <param name="s">source string</param>
+        /// <param name="value">source string</param>
         /// <param name="separator">separator char</param>
         /// <returns>Tuple result</returns>
-        public static Tuple<string, string> Split2Half(this string s, char separator)
+        public static Tuple<string, string> Split2Half(this string value, string separator)
         {
-            if (s != null)
-            {
-                return new Tuple<string, string>(s.SusbstrToChar(separator, s), s.SusbstrFromChar(separator, string.Empty));
-            }
-            return new Tuple<string, string>(null, null);
+            if (string.IsNullOrEmpty(value))
+                return new Tuple<string, string>(string.Empty, string.Empty);
+
+            var separatorExists = value.Contains(separator);
+            return separatorExists
+                    ? new Tuple<string, string>(value.SusbstrTo(separator), value.SusbstrFrom(separator))   // splitted strings
+                    : new Tuple<string, string>(value, string.Empty);                                       // separator not found                    
+        }
+
+
+        public static Tuple<string, string> Split2Half(this string value, char separator)
+        {
+            return Split2Half(value, separator.ToString());
         }
 
 

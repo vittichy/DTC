@@ -189,23 +189,23 @@ namespace Dtc.Common.Tests.Extensions
         {
             string test = null;
             var result = test.SusbstrToChars();
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
 
             result = test.SusbstrToChars(' ');
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
 
             result = test.SusbstrToChars(' ', ':', 'A');
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
 
             test = string.Empty;
             result = test.SusbstrToChars();
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
 
             result = test.SusbstrToChars(' ');
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
 
             result = test.SusbstrToChars(' ', ':', 'A');
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
 
             test = "ABCDE";
             result = test.SusbstrToChars('A');
@@ -224,7 +224,250 @@ namespace Dtc.Common.Tests.Extensions
             Assert.AreEqual("ABCD", result);
 
             result = test.SusbstrToChars('X', 'Y');
-            Assert.IsNull(result);
+            Assert.IsEmpty(result);
+        }
+
+
+
+        /// <summary>
+        /// SusbstrTo
+        /// </summary>
+        [Test]
+        public void SusbstrTo_CHR_Tests()
+        {
+            string test = null;
+            var result = test.SusbstrTo(' ');
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo('A');
+            Assert.IsEmpty(result);
+
+            test = "A";
+
+            result = test.SusbstrTo(' ');
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo('A');
+            Assert.IsEmpty(result);
+
+            test = "ABCDE";
+
+            result = test.SusbstrTo(' ');
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo('A');
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo('B');
+            Assert.AreEqual("A", result);
+
+            result = test.SusbstrTo('C');
+            Assert.AreEqual("AB", result);
+
+            result = test.SusbstrTo('E');
+            Assert.AreEqual("ABCD", result);
+        }
+
+
+        /// <summary>
+        /// SusbstrTo - str
+        /// </summary>
+        [Test]
+        public void SusbstrTo_STR_Tests()
+        {
+            string test = null;
+            var result = test.SusbstrTo(null);
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo(string.Empty);
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo("A");
+            Assert.IsEmpty(result);
+
+            test = "A";
+
+            result = test.SusbstrTo(" ");
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo("A");
+            Assert.IsEmpty(result);
+
+            test = "ABCDE";
+
+            result = test.SusbstrTo(" ");
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo("---");
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo("A");
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo("ABC");
+            Assert.IsEmpty(result);
+
+            result = test.SusbstrTo("B");
+            Assert.AreEqual("A", result);
+
+            result = test.SusbstrTo("BC");
+            Assert.AreEqual("A", result);
+
+            result = test.SusbstrTo("C");
+            Assert.AreEqual("AB", result);
+
+            result = test.SusbstrTo("CDE");
+            Assert.AreEqual("AB", result);
+
+            result = test.SusbstrTo("E");
+            Assert.AreEqual("ABCD", result);
+
+            result = test.SusbstrTo("DE");
+            Assert.AreEqual("ABC", result);
+        }
+
+
+        /// <summary>
+        /// Split2Half
+        /// </summary>
+        [Test]
+        public void Split2Half_CHR_Tests()
+        {
+            string test = null;
+
+            var result = test.Split2Half(' ');
+            Assert.IsNotNull(result);
+            Assert.IsEmpty(result.Item1);
+            Assert.IsEmpty(result.Item2);
+
+            test = "";
+            result = test.Split2Half(' ');
+            Assert.IsNotNull(result);
+            Assert.IsEmpty(result.Item1);
+            Assert.IsEmpty(result.Item2);
+
+            test = " ";
+            result = test.Split2Half(' ');
+            Assert.IsNotNull(result);
+            Assert.IsEmpty(result.Item1);
+            Assert.IsEmpty(result.Item2);
+
+            test = "ABCDE";
+            result = test.Split2Half(' ');
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ABCDE", result.Item1);
+            Assert.IsEmpty(result.Item2);
+
+            result = test.Split2Half('C');
+            Assert.IsNotNull(result);
+            Assert.AreEqual("AB", result.Item1);
+            Assert.AreEqual("DE", result.Item2);
+
+            result = test.Split2Half('A');
+            Assert.IsNotNull(result);
+            Assert.AreEqual("", result.Item1);
+            Assert.AreEqual("BCDE", result.Item2);
+
+            result = test.Split2Half('E');
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ABCD", result.Item1);
+            Assert.AreEqual("", result.Item2);
+        }
+
+
+        /// <summary>
+        /// Split2Half
+        /// </summary>
+        [Test]
+        public void Split2Half_STR_Tests()
+        {
+            string test = null;
+
+            var result = test.Split2Half(" ");
+            Assert.IsNotNull(result);
+            Assert.IsEmpty(result.Item1);
+            Assert.IsEmpty(result.Item2);
+
+            test = "";
+            result = test.Split2Half(" ");
+            Assert.IsNotNull(result);
+            Assert.IsEmpty(result.Item1);
+            Assert.IsEmpty(result.Item2);
+
+            test = " ";
+            result = test.Split2Half(" ");
+            Assert.IsNotNull(result);
+            Assert.IsEmpty(result.Item1);
+            Assert.IsEmpty(result.Item2);
+
+            test = "ABCDE";
+            result = test.Split2Half(" ");
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ABCDE", result.Item1);
+            Assert.IsEmpty(result.Item2);
+
+            result = test.Split2Half("C");
+            Assert.IsNotNull(result);
+            Assert.AreEqual("AB", result.Item1);
+            Assert.AreEqual("DE", result.Item2);
+
+            result = test.Split2Half("A");
+            Assert.IsNotNull(result);
+            Assert.AreEqual("", result.Item1);
+            Assert.AreEqual("BCDE", result.Item2);
+
+            result = test.Split2Half("E");
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ABCD", result.Item1);
+            Assert.AreEqual("", result.Item2);
+
+            result = test.Split2Half("BCD");
+            Assert.IsNotNull(result);
+            Assert.AreEqual("A", result.Item1);
+            Assert.AreEqual("E", result.Item2);
+
+            result = test.Split2Half("ABCDE");
+            Assert.IsNotNull(result);
+            Assert.AreEqual("", result.Item1);
+            Assert.AreEqual("", result.Item2);
+
+        }
+
+
+        /// <summary>
+        /// SusbstrFrom
+        /// </summary>
+        [Test]
+        public void SusbstrFrom_Tests()
+        {
+            string test = "ABCDE";
+
+            var result = test.SusbstrFrom("BCD");
+            Assert.AreEqual("E", result);
+
+            result = test.SusbstrFrom("A");
+            Assert.AreEqual("BCDE", result);
+
+            result = test.SusbstrFrom("B");
+            Assert.AreEqual("CDE", result);
+
+            result = test.SusbstrFrom("E");
+            Assert.AreEqual("", result);
+
+            result = test.SusbstrFrom("DE");
+            Assert.AreEqual("", result);
+
+            result = test.SusbstrFrom("ABCDE");
+            Assert.AreEqual("", result);
+
+            result = test.SusbstrFrom(null);
+            Assert.AreEqual("", result);
+
+            result = test.SusbstrFrom(string.Empty);
+            Assert.AreEqual("", result);
+
+            result = test.SusbstrFrom("XXXXXX");
+            Assert.AreEqual("", result);
         }
     }
 }
