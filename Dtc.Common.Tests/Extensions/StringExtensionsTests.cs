@@ -5,7 +5,7 @@ using System.Linq;
 namespace Dtc.Common.Tests.Extensions
 {
     [TestFixture]
-    public class ArgsPatserTests
+    public class StringExtensionsTests
     {
         [Test]
         public void RemoveEndTextTo_Tests()
@@ -133,24 +133,24 @@ namespace Dtc.Common.Tests.Extensions
         public void SusbstrFromToChar_Tests()
         {
             string test = null;
-            var result = test.SusbstrFromToChar(' ', ':');
+            var result = test.SubstrFromToChar(' ', ':');
             Assert.IsNull(result);
 
             test = string.Empty;
-            result = test.SusbstrFromToChar(' ', ':');
+            result = test.SubstrFromToChar(' ', ':');
             Assert.IsNull(result);
 
             test = "AB";
-            result = test.SusbstrFromToChar('A', 'B');
+            result = test.SubstrFromToChar('A', 'B');
             Assert.AreEqual("AB", result);
 
-            result = test.SusbstrFromToChar('A', 'C');
+            result = test.SubstrFromToChar('A', 'C');
             Assert.AreEqual("AB", result);
 
-            result = test.SusbstrFromToChar('X', 'B');
+            result = test.SubstrFromToChar('X', 'B');
             Assert.AreEqual("AB", result);
 
-            result = test.SusbstrFromToChar('Z', 'Z');
+            result = test.SubstrFromToChar('Z', 'Z');
             Assert.AreEqual("AB", result);
 
             // parsovani CDL
@@ -158,26 +158,17 @@ namespace Dtc.Common.Tests.Extensions
             // viewmodel PayrollAbsenceViewModel : PayrollAbsence [parent = payroll]
 
             test = "viewmodel PayrollAbsenceViewModel : PayrollAbsence [parent = payroll]";
-            result = test.SusbstrFromToChar(' ', ':');
+            result = test.SubstrFromToChar(' ', ':');
             Assert.IsNotNull(result);
             Assert.AreEqual(" PayrollAbsenceViewModel :", result);
 
-            result = test.SusbstrFromToChar(':', '[');
+            result = test.SubstrFromToChar(':', '[');
             Assert.IsNotNull(result);
             Assert.AreEqual(": PayrollAbsence [", result);
 
-            result = test.SusbstrFromToChar('[', ']');
+            result = test.SubstrFromToChar('[', ']');
             Assert.IsNotNull(result);
             Assert.AreEqual("[parent = payroll]", result);
-
-            // service FinanceService
-            // concept ReceivedInvoice: BookkeepingDocument
-            // concept VatBreakDownSheetReceivedInvoice[parent = receivedInvoice]
-            // concept CarLog[parent = car]
-            // concept CarDrivingSettings[settings]
-            // concept ECar : Car
-            // concept PayrollTaxAllowance [parent = payroll, audit = no]    
-
         }
 
 
@@ -188,43 +179,46 @@ namespace Dtc.Common.Tests.Extensions
         public void SusbstrToAnyChars_Tests()
         {
             string test = null;
-            var result = test.SusbstrToChars();
+            var result = test.SubstrToChars();
             Assert.IsEmpty(result);
 
-            result = test.SusbstrToChars(' ');
+            result = test.SubstrToChars(' ');
             Assert.IsEmpty(result);
 
-            result = test.SusbstrToChars(' ', ':', 'A');
+            result = test.SubstrToChars(' ', ':', 'A');
             Assert.IsEmpty(result);
 
             test = string.Empty;
-            result = test.SusbstrToChars();
+            result = test.SubstrToChars();
             Assert.IsEmpty(result);
 
-            result = test.SusbstrToChars(' ');
+            result = test.SubstrToChars(' ');
             Assert.IsEmpty(result);
 
-            result = test.SusbstrToChars(' ', ':', 'A');
+            result = test.SubstrToChars(' ', ':', 'A');
             Assert.IsEmpty(result);
 
             test = "ABCDE";
-            result = test.SusbstrToChars('A');
+            result = test.SubstrToChars('A');
+            Assert.IsEmpty(result);
+
+            result = test.SubstrToChars('A', 'C');
             Assert.AreEqual("", result);
 
-            result = test.SusbstrToChars('A', 'C');
-            Assert.AreEqual("", result);
-
-            result = test.SusbstrToChars('C', 'C', 'D');
+            result = test.SubstrToChars('C', 'C', 'D');
             Assert.AreEqual("AB", result);
 
-            result = test.SusbstrToChars('X', 'D', 'C', 'Y');
+            result = test.SubstrToChars('X', 'D', 'C', 'Y');
             Assert.AreEqual("ABC", result);
 
-            result = test.SusbstrToChars('X', 'E', 'C', 'Y');
+            result = test.SubstrToChars('X', 'E', 'C', 'Y');
             Assert.AreEqual("ABCD", result);
 
-            result = test.SusbstrToChars('X', 'Y');
-            Assert.IsEmpty(result);
+            result = test.SubstrToChars('X', 'Y');
+            Assert.AreEqual(test, result);
+
+            result = test.SubstrToChars('C', 'X', 'Y');
+            Assert.AreEqual("AB", result);
         }
 
 
@@ -236,35 +230,35 @@ namespace Dtc.Common.Tests.Extensions
         public void SusbstrTo_CHR_Tests()
         {
             string test = null;
-            var result = test.SusbstrTo(' ');
+            var result = test.SubstrTo(' ');
             Assert.IsEmpty(result);
 
-            result = test.SusbstrTo('A');
+            result = test.SubstrTo('A');
             Assert.IsEmpty(result);
 
             test = "A";
 
-            result = test.SusbstrTo(' ');
-            Assert.IsEmpty(result);
+            result = test.SubstrTo(' ');
+            Assert.AreEqual(test, result);
 
-            result = test.SusbstrTo('A');
+            result = test.SubstrTo('A');
             Assert.IsEmpty(result);
 
             test = "ABCDE";
 
-            result = test.SusbstrTo(' ');
+            result = test.SubstrTo(' ');
+            Assert.AreEqual(test, result);
+
+            result = test.SubstrTo('A');
             Assert.IsEmpty(result);
 
-            result = test.SusbstrTo('A');
-            Assert.IsEmpty(result);
-
-            result = test.SusbstrTo('B');
+            result = test.SubstrTo('B');
             Assert.AreEqual("A", result);
 
-            result = test.SusbstrTo('C');
+            result = test.SubstrTo('C');
             Assert.AreEqual("AB", result);
 
-            result = test.SusbstrTo('E');
+            result = test.SubstrTo('E');
             Assert.AreEqual("ABCD", result);
         }
 
@@ -276,54 +270,57 @@ namespace Dtc.Common.Tests.Extensions
         public void SusbstrTo_STR_Tests()
         {
             string test = null;
-            var result = test.SusbstrTo(null);
+            var result = test.SubstrTo(null);
             Assert.IsEmpty(result);
 
-            result = test.SusbstrTo(string.Empty);
+            result = test.SubstrTo(string.Empty);
             Assert.IsEmpty(result);
 
-            result = test.SusbstrTo("A");
+            result = test.SubstrTo("A");
             Assert.IsEmpty(result);
 
             test = "A";
 
-            result = test.SusbstrTo(" ");
-            Assert.IsEmpty(result);
+            result = test.SubstrTo(" ");
+            Assert.AreEqual(test, result);
 
-            result = test.SusbstrTo("A");
+            result = test.SubstrTo("A");
             Assert.IsEmpty(result);
 
             test = "ABCDE";
 
-            result = test.SusbstrTo(" ");
+            result = test.SubstrTo(" ");
+            Assert.AreEqual(test, result);
+
+            result = test.SubstrTo("---");
+            Assert.AreEqual(test, result);
+
+            result = test.SubstrTo("A");
             Assert.IsEmpty(result);
 
-            result = test.SusbstrTo("---");
+            result = test.SubstrTo("ABC");
             Assert.IsEmpty(result);
 
-            result = test.SusbstrTo("A");
-            Assert.IsEmpty(result);
-
-            result = test.SusbstrTo("ABC");
-            Assert.IsEmpty(result);
-
-            result = test.SusbstrTo("B");
+            result = test.SubstrTo("B");
             Assert.AreEqual("A", result);
 
-            result = test.SusbstrTo("BC");
+            result = test.SubstrTo("BC");
             Assert.AreEqual("A", result);
 
-            result = test.SusbstrTo("C");
+            result = test.SubstrTo("C");
             Assert.AreEqual("AB", result);
 
-            result = test.SusbstrTo("CDE");
+            result = test.SubstrTo("CDE");
             Assert.AreEqual("AB", result);
 
-            result = test.SusbstrTo("E");
+            result = test.SubstrTo("E");
             Assert.AreEqual("ABCD", result);
 
-            result = test.SusbstrTo("DE");
+            result = test.SubstrTo("DE");
             Assert.AreEqual("ABC", result);
+
+            result = test.SubstrTo("ABCDE");
+            Assert.IsEmpty(result);
         }
 
 
@@ -438,35 +435,35 @@ namespace Dtc.Common.Tests.Extensions
         /// SusbstrFrom
         /// </summary>
         [Test]
-        public void SusbstrFrom_Tests()
+        public void SubstrFrom_Tests()
         {
             string test = "ABCDE";
 
-            var result = test.SusbstrFrom("BCD");
+            var result = test.SubstrFrom("BCD");
             Assert.AreEqual("E", result);
 
-            result = test.SusbstrFrom("A");
+            result = test.SubstrFrom("A");
             Assert.AreEqual("BCDE", result);
 
-            result = test.SusbstrFrom("B");
+            result = test.SubstrFrom("B");
             Assert.AreEqual("CDE", result);
 
-            result = test.SusbstrFrom("E");
+            result = test.SubstrFrom("E");
             Assert.AreEqual("", result);
 
-            result = test.SusbstrFrom("DE");
+            result = test.SubstrFrom("DE");
             Assert.AreEqual("", result);
 
-            result = test.SusbstrFrom("ABCDE");
+            result = test.SubstrFrom("ABCDE");
             Assert.AreEqual("", result);
 
-            result = test.SusbstrFrom(null);
+            result = test.SubstrFrom(null);
             Assert.AreEqual("", result);
 
-            result = test.SusbstrFrom(string.Empty);
+            result = test.SubstrFrom(string.Empty);
             Assert.AreEqual("", result);
 
-            result = test.SusbstrFrom("XXXXXX");
+            result = test.SubstrFrom("XXXXXX");
             Assert.AreEqual("", result);
         }
     }

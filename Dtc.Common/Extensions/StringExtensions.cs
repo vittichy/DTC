@@ -174,22 +174,19 @@ namespace Dtc.Common.Extensions
         /// <param name="value">string instance</param>
         /// <param name="ch">ending char</param>
         /// <returns>string</returns>
-        public static string SusbstrTo(this string value, string toStr)
+        public static string SubstrTo(this string value, string toStr)
         {
             if (string.IsNullOrEmpty(value))
                 return string.Empty;
 
             var chIndex = value.IndexOf(toStr);
-            if (chIndex >= 0)
-                return value.Substring(0, chIndex);
-
-            return string.Empty;
+            return (chIndex > -1) ? value.Substring(0, chIndex) : value;
         }
 
 
-        public static string SusbstrTo(this string value, char toChar)
+        public static string SubstrTo(this string value, char toChar)
         {
-            return SusbstrTo(value, toChar.ToString());
+            return SubstrTo(value, toChar.ToString());
         }
 
 
@@ -199,17 +196,17 @@ namespace Dtc.Common.Extensions
         /// <param name="value">string instance</param>
         /// <param name="ch">ending char</param>
         /// <returns>string</returns>
-        public static string SusbstrToChars(this string value, params char[] chrs)
+        public static string SubstrToChars(this string value, params char[] chrs)
         {
             if (string.IsNullOrEmpty(value))
                 return string.Empty;
             
             var existingChar = new List<char>(chrs).FirstOrDefault(p => value.Contains(p));
-            return value.SusbstrTo(existingChar);
+            return value.SubstrTo(existingChar);
         }
         
 
-        public static string SusbstrFrom(this string value, string fromStr)
+        public static string SubstrFrom(this string value, string fromStr)
         {
             if (string.IsNullOrEmpty(value) || string.IsNullOrEmpty(fromStr))
                 return string.Empty;
@@ -222,9 +219,9 @@ namespace Dtc.Common.Extensions
         }
 
 
-        public static string SusbstrFrom(this string value, char fromCh)
+        public static string SubstrFrom(this string value, char fromCh)
         {
-            return SusbstrFrom(value, fromCh.ToString());
+            return SubstrFrom(value, fromCh.ToString());
         }
 
 
@@ -235,7 +232,7 @@ namespace Dtc.Common.Extensions
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public static string SusbstrFromToChar(this string value, char start, char end)
+        public static string SubstrFromToChar(this string value, char start, char end)
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
@@ -268,7 +265,7 @@ namespace Dtc.Common.Extensions
 
             var separatorExists = value.Contains(separator);
             return separatorExists
-                    ? new Tuple<string, string>(value.SusbstrTo(separator), value.SusbstrFrom(separator))   // splitted strings
+                    ? new Tuple<string, string>(value.SubstrTo(separator), value.SubstrFrom(separator))   // splitted strings
                     : new Tuple<string, string>(value, string.Empty);                                       // separator not found                    
         }
 
